@@ -7,166 +7,107 @@ import { getTranslations } from '@/lib/translations';
 
 export default function Header() {
   const { language, toggleLanguage } = useLanguage();
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
   const t = getTranslations(language);
 
+  const navLinks = [
+    { href: '/', label: t.nav.home },
+    { href: '/about', label: t.nav.about },
+    { href: '/services', label: t.nav.services },
+    { href: '/direct-primary-care', label: t.nav.directPrimaryCare },
+    { href: '/video-visits', label: t.nav.videoVisits },
+    { href: '/patient-resources', label: t.nav.patientResources },
+    { href: '/contact', label: t.nav.contact },
+  ];
+
+  const emergencyNotice = process.env.NEXT_PUBLIC_EMERGENCY_NOTICE;
+
   return (
-    <header className="header">
-      <div className="container">
-        <div className="header-content">
-          <Link href="/" className="logo">
-            <h1>Vintage Family Medicine</h1>
-          </Link>
-          
-          <button 
-            className="mobile-menu-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle menu"
-          >
-            <span></span>
-            <span></span>
-            <span></span>
-          </button>
-
-          <nav className={`nav ${mobileMenuOpen ? 'nav-open' : ''}`}>
-            <Link href="/" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.home}
-            </Link>
-            <Link href="/services" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.services}
-            </Link>
-            <Link href="/scheduling" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.scheduling}
-            </Link>
-            <Link href="/patient-portal" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.patientPortal}
-            </Link>
-            <Link href="/billing" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.billing}
-            </Link>
-            <Link href="/contact" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.contact}
-            </Link>
-            <Link href="/resources" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.resources}
-            </Link>
-            <Link href="/about" onClick={() => setMobileMenuOpen(false)}>
-              {t.nav.about}
-            </Link>
-          </nav>
-
-          <button 
-            className="language-toggle"
-            onClick={toggleLanguage}
-            aria-label="Toggle language"
-          >
-            {language === 'en' ? 'ES' : 'EN'}
-          </button>
+    <div className="sticky top-0 z-50">
+      {emergencyNotice && (
+        <div className="bg-red-600 text-white text-sm text-center py-2 px-4 font-medium">
+          {emergencyNotice}
         </div>
-      </div>
-      <style jsx>{`
-        .header {
-          background-color: #1e40af;
-          color: white;
-          padding: 1rem 0;
-          position: sticky;
-          top: 0;
-          z-index: 1000;
-          box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+      )}
 
-        .header-content {
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          gap: 1rem;
-        }
+      <header className="bg-brand-navy text-white shadow-lg">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6">
+          <div className="flex items-center justify-between h-16">
+            {/* Logo */}
+            <Link href="/" className="flex-shrink-0 group">
+              <span className="text-base font-bold text-white leading-tight group-hover:text-blue-200 transition-colors">
+                Vintage Family Medicine
+                <span className="block text-xs font-normal text-blue-300">and Pediatrics</span>
+              </span>
+            </Link>
 
-        .logo h1 {
-          font-size: 1.25rem;
-          font-weight: 600;
-          color: white;
-        }
+            {/* Desktop nav */}
+            <nav className="hidden lg:flex items-center gap-0.5" aria-label="Main navigation">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className="px-3 py-2 text-sm font-medium rounded-md text-blue-100 hover:text-white hover:bg-white/10 transition-colors whitespace-nowrap"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
 
-        .mobile-menu-toggle {
-          display: flex;
-          flex-direction: column;
-          gap: 4px;
-          background: none;
-          border: none;
-          cursor: pointer;
-          padding: 0.5rem;
-        }
+            {/* Right: lang toggle + hamburger */}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={toggleLanguage}
+                className="px-3 py-1.5 text-sm font-semibold rounded-md bg-white/20 border border-white/30 hover:bg-white/30 transition-colors"
+                aria-label={language === 'en' ? 'Switch to Spanish' : 'Switch to English'}
+              >
+                {language === 'en' ? 'ES' : 'EN'}
+              </button>
 
-        .mobile-menu-toggle span {
-          width: 25px;
-          height: 3px;
-          background-color: white;
-          transition: all 0.3s;
-        }
+              <button
+                className="lg:hidden p-2 rounded-md hover:bg-white/10 transition-colors"
+                onClick={() => setMobileOpen(!mobileOpen)}
+                aria-label="Toggle navigation menu"
+                aria-expanded={mobileOpen}
+              >
+                <span
+                  className={`block w-6 h-0.5 bg-white mb-1.5 transition-all duration-200 ${
+                    mobileOpen ? 'rotate-45 translate-y-2' : ''
+                  }`}
+                />
+                <span
+                  className={`block w-6 h-0.5 bg-white mb-1.5 transition-all duration-200 ${
+                    mobileOpen ? 'opacity-0' : ''
+                  }`}
+                />
+                <span
+                  className={`block w-6 h-0.5 bg-white transition-all duration-200 ${
+                    mobileOpen ? '-rotate-45 -translate-y-2' : ''
+                  }`}
+                />
+              </button>
+            </div>
+          </div>
+        </div>
 
-        .nav {
-          display: none;
-          flex-direction: column;
-          position: absolute;
-          top: 100%;
-          left: 0;
-          right: 0;
-          background-color: #1e40af;
-          padding: 1rem;
-          gap: 0.5rem;
-        }
-
-        .nav-open {
-          display: flex;
-        }
-
-        .nav a {
-          color: white;
-          padding: 0.75rem 1rem;
-          border-radius: 0.375rem;
-          transition: background-color 0.2s;
-        }
-
-        .nav a:hover {
-          background-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .language-toggle {
-          background-color: rgba(255, 255, 255, 0.2);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-          padding: 0.5rem 1rem;
-          border-radius: 0.375rem;
-          cursor: pointer;
-          font-weight: 600;
-          transition: background-color 0.2s;
-        }
-
-        .language-toggle:hover {
-          background-color: rgba(255, 255, 255, 0.3);
-        }
-
-        @media (min-width: 768px) {
-          .mobile-menu-toggle {
-            display: none;
-          }
-
-          .nav {
-            display: flex;
-            flex-direction: row;
-            position: static;
-            background-color: transparent;
-            padding: 0;
-            gap: 0.5rem;
-          }
-
-          .nav a {
-            padding: 0.5rem 1rem;
-          }
-        }
-      `}</style>
-    </header>
+        {/* Mobile menu */}
+        {mobileOpen && (
+          <div className="lg:hidden border-t border-white/10">
+            <nav className="max-w-7xl mx-auto px-4 py-3 flex flex-col gap-1" aria-label="Mobile navigation">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMobileOpen(false)}
+                  className="px-3 py-2.5 text-sm font-medium rounded-md text-blue-100 hover:text-white hover:bg-white/10 transition-colors"
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
+      </header>
+    </div>
   );
 }
-

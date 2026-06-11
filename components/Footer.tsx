@@ -8,86 +8,118 @@ export default function Footer() {
   const { language } = useLanguage();
   const t = getTranslations(language);
 
+  const disclaimer =
+    language === 'es'
+      ? 'Si esto es una emergencia médica, llame al 911 de inmediato.'
+      : 'If this is a medical emergency, call 911 immediately.';
+
+  const quickLinks = [
+    { href: '/about', label: t.nav.about },
+    { href: '/services', label: t.nav.services },
+    { href: '/direct-primary-care', label: t.nav.directPrimaryCare },
+    { href: '/video-visits', label: t.nav.videoVisits },
+    { href: '/contact', label: t.nav.contact },
+  ];
+
+  const patientLinks = [
+    { href: '/patient-resources', label: t.nav.patientResources },
+    { href: '#', label: language === 'es' ? 'Programar Cita' : 'Schedule Appointment' },
+    { href: '#', label: language === 'es' ? 'Portal del Paciente' : 'Patient Portal' },
+    { href: '#', label: language === 'es' ? 'Pagar Factura' : 'Pay Bill' },
+    { href: '#', label: language === 'es' ? 'Envíenos un Mensaje' : 'Message Us' },
+  ];
+
+  const legalLinks = [
+    { href: '/legal/privacy-policy', label: language === 'es' ? 'Política de Privacidad' : 'Privacy Policy' },
+    { href: '/legal/hipaa-notice', label: language === 'es' ? 'Aviso HIPAA' : 'HIPAA Notice' },
+    { href: '/legal/terms-of-use', label: language === 'es' ? 'Términos de Uso' : 'Terms of Use' },
+  ];
+
   return (
-    <footer className="footer">
-      <div className="container">
-        <div className="footer-content">
-          <div className="footer-section">
-            <h3>Vintage Family Medicine</h3>
-            <p>{t.footer.tagline}</p>
-          </div>
-          
-          <div className="footer-section">
-            <h4>Contact</h4>
-            <p>{t.footer.address}</p>
-            <p>{t.footer.city}</p>
+    <footer className="bg-brand-navy text-gray-300">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 pt-12 pb-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-10">
+          {/* Column 1: Clinic Info */}
+          <div>
+            <h3 className="text-white font-bold text-lg mb-3">Vintage Family Medicine</h3>
+            <p className="text-blue-200 text-sm mb-4">{t.footer.tagline}</p>
+            <p className="text-sm">{t.footer.address}</p>
+            <p className="text-sm">{t.footer.city}</p>
           </div>
 
-          <div className="footer-section">
-            <h4>Quick Links</h4>
-            <Link href="/services">{t.nav.services}</Link>
-            <Link href="/scheduling">{t.nav.scheduling}</Link>
-            <Link href="/patient-portal">{t.nav.patientPortal}</Link>
-            <Link href="/contact">{t.nav.contact}</Link>
+          {/* Column 2: Quick Links */}
+          <div>
+            <h4 className="text-white font-semibold mb-3">
+              {language === 'es' ? 'Enlaces Rápidos' : 'Quick Links'}
+            </h4>
+            <ul className="space-y-2">
+              {quickLinks.map((link) => (
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Patient Access */}
+          <div>
+            <h4 className="text-white font-semibold mb-3">
+              {language === 'es' ? 'Acceso al Paciente' : 'Patient Access'}
+            </h4>
+            <ul className="space-y-2">
+              {patientLinks.map((link) => (
+                <li key={link.href + link.label}>
+                  <Link
+                    href={link.href}
+                    className="text-sm text-gray-300 hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Contact & Hours */}
+          <div>
+            <h4 className="text-white font-semibold mb-3">
+              {language === 'es' ? 'Contacto y Horario' : 'Contact & Hours'}
+            </h4>
+            <div className="space-y-2 text-sm">
+              <p>
+                <a href="tel:TODO" className="hover:text-white transition-colors">
+                  {language === 'es' ? 'Teléfono: TODO' : 'Phone: TODO'}
+                </a>
+              </p>
+              <p>{language === 'es' ? 'Lun–Vie: 9:00am – 5:30pm' : 'Mon–Fri: 9:00am – 5:30pm'}</p>
+              <p>{language === 'es' ? 'Almuerzo: 12:30 – 1:30pm' : 'Lunch: 12:30 – 1:30pm'}</p>
+              <p className="text-gray-400">{language === 'es' ? 'Sáb–Dom: Cerrado' : 'Sat–Sun: Closed'}</p>
+            </div>
           </div>
         </div>
-        
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Vintage Family Medicine and Pediatrics. All rights reserved.</p>
+
+        {/* Emergency disclaimer */}
+        <div className="border-t border-white/10 pt-6 pb-2">
+          <p className="text-center text-red-400 font-medium text-sm mb-4">{disclaimer}</p>
+        </div>
+
+        {/* Legal links + copyright */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 text-sm text-gray-400">
+          <p>&copy; {new Date().getFullYear()} Vintage Family Medicine and Pediatrics. {language === 'es' ? 'Todos los derechos reservados.' : 'All rights reserved.'}</p>
+          <div className="flex gap-4">
+            {legalLinks.map((link) => (
+              <Link key={link.href} href={link.href} className="hover:text-white transition-colors">
+                {link.label}
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
-      <style jsx>{`
-        .footer {
-          background-color: #1f2937;
-          color: #e5e7eb;
-          padding: 3rem 0 1.5rem;
-          margin-top: 4rem;
-        }
-
-        .footer-content {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          margin-bottom: 2rem;
-        }
-
-        .footer-section h3,
-        .footer-section h4 {
-          color: white;
-          margin-bottom: 1rem;
-          font-size: 1.125rem;
-        }
-
-        .footer-section p {
-          margin-bottom: 0.5rem;
-          line-height: 1.6;
-        }
-
-        .footer-section a {
-          display: block;
-          color: #d1d5db;
-          margin-bottom: 0.5rem;
-          transition: color 0.2s;
-        }
-
-        .footer-section a:hover {
-          color: white;
-        }
-
-        .footer-bottom {
-          border-top: 1px solid #374151;
-          padding-top: 1.5rem;
-          text-align: center;
-          color: #9ca3af;
-        }
-
-        @media (min-width: 768px) {
-          .footer-content {
-            grid-template-columns: repeat(3, 1fr);
-          }
-        }
-      `}</style>
     </footer>
   );
 }
-

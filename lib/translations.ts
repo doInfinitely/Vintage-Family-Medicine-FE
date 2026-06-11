@@ -4,13 +4,12 @@ export const translations = {
   en: {
     nav: {
       home: 'Home',
-      services: 'Services',
-      scheduling: 'Scheduling',
-      patientPortal: 'Patient Portal',
-      billing: 'Bill Payment',
-      contact: 'Contact',
-      resources: 'Resources',
       about: 'About',
+      services: 'Services',
+      directPrimaryCare: 'Direct Primary Care',
+      videoVisits: 'Video Visits',
+      patientResources: 'Patient Resources',
+      contact: 'Contact',
     },
     home: {
       heroTitle: 'Vintage Family Medicine and Pediatrics',
@@ -190,13 +189,12 @@ export const translations = {
   es: {
     nav: {
       home: 'Inicio',
-      services: 'Servicios',
-      scheduling: 'Citas',
-      patientPortal: 'Portal del Paciente',
-      billing: 'Pago de Facturas',
-      contact: 'Contacto',
-      resources: 'Recursos',
       about: 'Acerca de',
+      services: 'Servicios',
+      directPrimaryCare: 'Atención Primaria Directa',
+      videoVisits: 'Visitas por Video',
+      patientResources: 'Recursos para Pacientes',
+      contact: 'Contacto',
     },
     home: {
       heroTitle: 'Vintage Family Medicine and Pediatrics',

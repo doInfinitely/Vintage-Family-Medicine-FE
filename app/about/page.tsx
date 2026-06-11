@@ -1,236 +1,229 @@
 'use client';
 
+import Link from 'next/link';
 import { useLanguage } from '@/components/LanguageProvider';
 import { getTranslations } from '@/lib/translations';
+import CtaButton from '@/components/ui/CtaButton';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Card from '@/components/ui/Card';
 
-export default function About() {
+export default function AboutPage() {
   const { language } = useLanguage();
   const t = getTranslations(language);
+  const a = t.about;
 
   return (
-    <div className="about-page">
-      <section className="hero">
-        <div className="container">
-          <h1>{t.about.title}</h1>
+    <>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-brand-navy to-blue-900 text-white py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-brand-teal font-semibold uppercase tracking-widest text-sm mb-4">
+            {language === 'es' ? 'Nuestro Médico' : 'Our Physician'}
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{a.title}</h1>
+          <p className="text-xl text-blue-200">{a.doctorTitle}</p>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="about-content">
-            <div className="doctor-section">
-              <h2>{t.about.doctorTitle}</h2>
-              <h3>{t.about.doctorSubtitle}</h3>
-              <p className="biography">{t.about.biography}</p>
+      {/* Doctor Profile */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-10 items-start">
+            {/* Photo placeholder */}
+            <div className="flex flex-col items-center">
+              <div className="w-48 h-48 rounded-full bg-brand-cream border-4 border-brand-teal flex items-center justify-center text-5xl mb-4">
+                👨‍⚕️
+              </div>
+              <h2 className="text-xl font-bold text-brand-navy text-center">{a.doctorTitle}</h2>
+              <p className="text-gray-500 text-sm text-center mt-1">{a.doctorSubtitle}</p>
             </div>
-
-            <div className="info-section">
-              <div className="info-block">
-                <h3>{t.about.education.title}</h3>
-                <ul>
-                  <li>{t.about.education.medical}</li>
-                  <li style={{ whiteSpace: 'pre-line' }}>{t.about.education.internships}</li>
-                  <li>{t.about.education.surgical}</li>
-                  <li>{t.about.education.family}</li>
-                </ul>
-              </div>
-
-              <div className="info-block">
-                <h3>{t.about.appointments.title}</h3>
-                <ul>
-                  {t.about.appointments.items.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="info-block">
-                <h3>{t.about.directorships.title}</h3>
-                <ul>
-                  {t.about.directorships.items.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-            </div>
-
-            <div className="mission-vision">
-              <div className="mission-block">
-                <h3>{t.about.mission.title}</h3>
-                <ul>
-                  {t.about.mission.items.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
-              </div>
-
-              <div className="vision-block">
-                <h3>{t.about.vision.title}</h3>
-                <ul>
-                  {t.about.vision.items.map((item, index) => (
-                    <li key={index}>{item}</li>
-                  ))}
-                </ul>
+            {/* Bio */}
+            <div className="lg:col-span-2">
+              <SectionHeader
+                eyebrow={language === 'es' ? 'Biografía' : 'Biography'}
+                title={language === 'es' ? 'Acerca del Dr. Ochei' : 'About Dr. Ochei'}
+              />
+              <p className="text-gray-700 text-lg leading-relaxed mt-4">{a.biography}</p>
+              <div className="mt-6">
+                <CtaButton actionKey="schedule_appointment" language={language} />
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <style jsx>{`
-        .about-page {
-          min-height: 100vh;
-        }
+      {/* Education */}
+      <section className="bg-brand-cream py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader eyebrow={language === 'es' ? 'Formación' : 'Training'} title={a.education.title} />
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <Card>
+              <h3 className="font-semibold text-brand-navy mb-2">
+                {language === 'es' ? 'Escuela de Medicina' : 'Medical School'}
+              </h3>
+              <p className="text-gray-700 text-sm leading-relaxed">{a.education.medical}</p>
+            </Card>
+            <Card>
+              <h3 className="font-semibold text-brand-navy mb-2">
+                {language === 'es' ? 'Pasantías' : 'Internships'}
+              </h3>
+              <p className="text-gray-700 text-sm leading-relaxed whitespace-pre-line">{a.education.internships}</p>
+            </Card>
+            <Card>
+              <h3 className="font-semibold text-brand-navy mb-2">
+                {language === 'es' ? 'Entrenamiento Quirúrgico' : 'Surgical Training'}
+              </h3>
+              <p className="text-gray-700 text-sm leading-relaxed">{a.education.surgical}</p>
+            </Card>
+            <Card>
+              <h3 className="font-semibold text-brand-navy mb-2">
+                {language === 'es' ? 'Medicina Familiar' : 'Family Medicine'}
+              </h3>
+              <p className="text-gray-700 text-sm leading-relaxed">{a.education.family}</p>
+            </Card>
+          </div>
+        </div>
+      </section>
 
-        .hero {
-          background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-          color: white;
-          padding: 3rem 0;
-          text-align: center;
-        }
+      {/* Appointments & Directorships */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <SectionHeader eyebrow="" title={a.appointments.title} />
+              <ul className="mt-6 space-y-3">
+                {a.appointments.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700">
+                    <span className="text-brand-teal mt-1 flex-shrink-0">▸</span>
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <SectionHeader eyebrow="" title={a.directorships.title} />
+              <ul className="mt-6 space-y-3">
+                {a.directorships.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700">
+                    <span className="text-brand-teal mt-1 flex-shrink-0">▸</span>
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        .hero h1 {
-          font-size: 2rem;
-        }
+      {/* Patient-Centered / DPC */}
+      <section className="bg-brand-cream py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <SectionHeader
+            eyebrow={language === 'es' ? 'Nuestro Modelo' : 'Our Model'}
+            title={language === 'es' ? 'Atención Centrada en el Paciente' : 'Patient-Centered Care'}
+            subtitle={
+              language === 'es'
+                ? 'El modelo de Atención Primaria Directa (DPC) le da más tiempo con su médico, citas el mismo día y atención verdaderamente personalizada.'
+                : 'The Direct Primary Care (DPC) model gives you more time with your physician, same-day appointments, and truly personalized care.'
+            }
+            centered
+          />
+          <div className="mt-8">
+            <Link
+              href="/direct-primary-care"
+              className="inline-flex items-center gap-2 text-brand-blue font-semibold hover:underline text-lg"
+            >
+              {language === 'es' ? 'Aprende sobre DPC →' : 'Learn about DPC →'}
+            </Link>
+          </div>
+        </div>
+      </section>
 
-        .section {
-          padding: 4rem 0;
-        }
+      {/* Mission */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
+            <div>
+              <SectionHeader eyebrow="" title={a.mission.title} />
+              <ul className="mt-6 space-y-3">
+                {a.mission.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-teal/10 text-brand-teal flex items-center justify-center text-xs mt-0.5">
+                      ✓
+                    </span>
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <SectionHeader eyebrow="" title={a.vision.title} />
+              <ul className="mt-6 space-y-3">
+                {a.vision.items.map((item, i) => (
+                  <li key={i} className="flex items-start gap-3 text-gray-700">
+                    <span className="flex-shrink-0 w-5 h-5 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center text-xs mt-0.5">
+                      ✓
+                    </span>
+                    <span className="text-sm">{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
 
-        .about-content {
-          max-width: 1000px;
-          margin: 0 auto;
-        }
-
-        .doctor-section {
-          text-align: center;
-          margin-bottom: 3rem;
-          padding-bottom: 3rem;
-          border-bottom: 2px solid #e5e7eb;
-        }
-
-        .doctor-section h2 {
-          font-size: 2rem;
-          color: #1e40af;
-          margin-bottom: 0.5rem;
-        }
-
-        .doctor-section h3 {
-          font-size: 1.25rem;
-          color: #6b7280;
-          margin-bottom: 1rem;
-          font-weight: 400;
-        }
-
-        .biography {
-          font-size: 1.125rem;
-          line-height: 1.8;
-          color: #374151;
-          max-width: 800px;
-          margin: 0 auto;
-        }
-
-        .info-section {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-          margin-bottom: 3rem;
-        }
-
-        .info-block {
-          background-color: #f9fafb;
-          padding: 2rem;
-          border-radius: 0.5rem;
-        }
-
-        .info-block h3 {
-          font-size: 1.5rem;
-          color: #1e40af;
-          margin-bottom: 1rem;
-        }
-
-        .info-block ul {
-          list-style: none;
-          padding: 0;
-        }
-
-        .info-block li {
-          padding: 0.5rem 0;
-          padding-left: 1.5rem;
-          position: relative;
-          line-height: 1.6;
-        }
-
-        .info-block li:before {
-          content: '•';
-          position: absolute;
-          left: 0;
-          color: #1e40af;
-          font-weight: bold;
-        }
-
-        .mission-vision {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 2rem;
-        }
-
-        .mission-block,
-        .vision-block {
-          background-color: #f9fafb;
-          padding: 2rem;
-          border-radius: 0.5rem;
-        }
-
-        .mission-block h3,
-        .vision-block h3 {
-          font-size: 1.5rem;
-          color: #1e40af;
-          margin-bottom: 1rem;
-        }
-
-        .mission-block ul,
-        .vision-block ul {
-          list-style: none;
-          padding: 0;
-        }
-
-        .mission-block li,
-        .vision-block li {
-          padding: 0.5rem 0;
-          padding-left: 1.5rem;
-          position: relative;
-          line-height: 1.6;
-        }
-
-        .mission-block li:before,
-        .vision-block li:before {
-          content: '✓';
-          position: absolute;
-          left: 0;
-          color: #10b981;
-          font-weight: bold;
-        }
-
-        @media (min-width: 768px) {
-          .hero {
-            padding: 4rem 0;
-          }
-
-          .hero h1 {
-            font-size: 2.5rem;
-          }
-
-          .info-section {
-            grid-template-columns: repeat(2, 1fr);
-          }
-
-          .mission-vision {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-      `}</style>
-    </div>
+      {/* Why Patients Choose Us */}
+      <section className="bg-brand-navy text-white py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <SectionHeader
+            eyebrow={language === 'es' ? 'Por Qué Nos Eligen' : 'Why Patients Choose Us'}
+            title={
+              language === 'es'
+                ? '3 Décadas · 4 Continentes · Miles de Pacientes'
+                : '3 Decades · 4 Continents · Thousands of Patients'
+            }
+            centered
+            light
+          />
+          <div className="mt-10 grid grid-cols-1 sm:grid-cols-2 gap-6 text-left">
+            {[
+              {
+                heading: language === 'es' ? 'Experiencia Incomparable' : 'Unmatched Experience',
+                body: language === 'es'
+                  ? 'Más de 30 años de práctica médica en múltiples especialidades y entornos.'
+                  : 'Over 30 years of medical practice across multiple specialties and settings.',
+              },
+              {
+                heading: language === 'es' ? 'Acceso Verdadero' : 'True Access',
+                body: language === 'es'
+                  ? 'Citas el mismo día o al siguiente, sin largas esperas.'
+                  : 'Same-day or next-day appointments — no long waits.',
+              },
+              {
+                heading: language === 'es' ? 'Atención Personalizada' : 'Personalized Care',
+                body: language === 'es'
+                  ? 'Su médico le conoce a usted, su historia y sus objetivos de salud.'
+                  : 'Your physician knows you, your history, and your health goals.',
+              },
+              {
+                heading: language === 'es' ? 'Tecnología Integrada' : 'Integrated Technology',
+                body: language === 'es'
+                  ? 'Video visitas, mensajes seguros y acceso remoto a sus registros de salud.'
+                  : 'Video visits, secure messaging, and remote access to your health records.',
+              },
+            ].map((item) => (
+              <div key={item.heading} className="bg-white/10 rounded-xl p-6">
+                <h3 className="font-semibold text-white mb-2">{item.heading}</h3>
+                <p className="text-blue-100 text-sm">{item.body}</p>
+              </div>
+            ))}
+          </div>
+          <div className="mt-10">
+            <CtaButton actionKey="schedule_appointment" language={language} variant="primary-light" />
+          </div>
+        </div>
+      </section>
+    </>
   );
 }
-

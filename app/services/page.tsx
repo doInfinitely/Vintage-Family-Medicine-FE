@@ -1,106 +1,162 @@
 'use client';
 
 import { useLanguage } from '@/components/LanguageProvider';
-import { translations } from '@/lib/translations';
+import { getTranslations } from '@/lib/translations';
+import CtaButton from '@/components/ui/CtaButton';
+import SectionHeader from '@/components/ui/SectionHeader';
+import Card from '@/components/ui/Card';
 
-export default function Services() {
+const CONDITIONS_EN = [
+  'Diabetes', 'Hypertension', 'High Cholesterol', 'Asthma', 'COPD',
+  'Hypothyroidism', 'Obesity', 'Congestive Heart Failure', 'Depression',
+  'Anxiety', 'Arthritis', 'GERD', 'Sleep Apnea', 'Chronic Pain',
+  'Anemia', 'Atrial Fibrillation', 'Kidney Disease', 'Liver Disease',
+];
+
+const CONDITIONS_ES = [
+  'Diabetes', 'Hipertensión', 'Colesterol Alto', 'Asma', 'EPOC',
+  'Hipotiroidismo', 'Obesidad', 'Insuficiencia Cardíaca Congestiva', 'Depresión',
+  'Ansiedad', 'Artritis', 'ERGE', 'Apnea del Sueño', 'Dolor Crónico',
+  'Anemia', 'Fibrilación Auricular', 'Enfermedad Renal', 'Enfermedad Hepática',
+];
+
+const SERVICE_ICONS: Record<string, string> = {
+  'Urgent Care': '🚑',
+  'Atención de Urgencias': '🚑',
+  'Chronic Disease Management': '🩺',
+  'Manejo de Enfermedades Crónicas': '🩺',
+  'Diabetes': '💉',
+  'High Blood Pressure': '❤️',
+  'Presión Arterial Alta': '❤️',
+  'High Cholesterol': '🧪',
+  'Colesterol Alto': '🧪',
+  'Asthma': '🫁',
+  'Asma': '🫁',
+  'Cold and Allergies': '🤧',
+  'Resfriados y Alergias': '🤧',
+  'Stomach Problems': '🫃',
+  'Problemas Estomacales': '🫃',
+  'Sexual Health': '💊',
+  'Salud Sexual': '💊',
+  "Women's Health": '👩',
+  'Salud de la Mujer': '👩',
+  "Men's Health": '👨',
+  'Salud del Hombre': '👨',
+  'Medical Weight Loss': '⚖️',
+  'Pérdida de Peso Médica': '⚖️',
+  'Smoking cessation': '🚭',
+  'Dejar de Fumar': '🚭',
+  'Video Visits': '💻',
+  default: '🏥',
+};
+
+export default function ServicesPage() {
   const { language } = useLanguage();
-  const t = translations[language];
+  const t = getTranslations(language);
+  const conditions = language === 'es' ? CONDITIONS_ES : CONDITIONS_EN;
 
   return (
-    <div className="services-page">
-      <section className="hero">
-        <div className="container">
-          <h1>{t.services.title}</h1>
-          <p className="subtitle">{t.services.subtitle}</p>
+    <>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-brand-navy to-blue-900 text-white py-20 px-4">
+        <div className="max-w-4xl mx-auto text-center">
+          <p className="text-brand-teal font-semibold uppercase tracking-widest text-sm mb-4">
+            {language === 'es' ? 'Atención Integral' : 'Comprehensive Care'}
+          </p>
+          <h1 className="text-4xl md:text-5xl font-bold mb-4">{t.services.title}</h1>
+          <p className="text-xl text-blue-200">{t.services.subtitle}</p>
         </div>
       </section>
 
-      <section className="section">
-        <div className="container">
-          <div className="services-grid">
-            {t.services.list.map((service, index) => (
-              <div key={index} className="service-card">
-                <h3>{service}</h3>
-              </div>
+      {/* Services Grid */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-6xl mx-auto">
+          <SectionHeader
+            eyebrow={language === 'es' ? 'Todos los Servicios' : 'All Services'}
+            title={language === 'es' ? 'Lo Que Tratamos' : 'What We Treat'}
+            centered
+          />
+          <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {t.services.list.map((service) => (
+              <Card
+                key={service}
+                className="flex items-start gap-4 hover:shadow-lg transition-shadow duration-200"
+              >
+                <span className="text-2xl flex-shrink-0">
+                  {SERVICE_ICONS[service] ?? SERVICE_ICONS.default}
+                </span>
+                <span className="text-brand-navy font-medium">{service}</span>
+              </Card>
             ))}
           </div>
         </div>
       </section>
 
-      <style jsx>{`
-        .services-page {
-          min-height: 100vh;
-        }
+      {/* Conditions section */}
+      <section className="bg-brand-cream py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <SectionHeader
+            eyebrow={language === 'es' ? 'Enfermedades Crónicas' : 'Chronic Conditions'}
+            title={
+              language === 'es'
+                ? 'Manejo de Enfermedades Crónicas'
+                : 'Chronic Disease Management'
+            }
+            subtitle={
+              language === 'es'
+                ? 'Manejamos una amplia gama de enfermedades crónicas con un enfoque basado en evidencia y centrado en el paciente.'
+                : 'We manage a broad spectrum of chronic conditions with an evidence-based, patient-centered approach.'
+            }
+          />
+          <div className="mt-10 flex flex-wrap gap-3">
+            {conditions.map((condition) => (
+              <span
+                key={condition}
+                className="px-4 py-2 bg-white text-brand-navy text-sm font-medium rounded-full border border-gray-200 shadow-sm"
+              >
+                {condition}
+              </span>
+            ))}
+          </div>
+        </div>
+      </section>
 
-        .hero {
-          background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-          color: white;
-          padding: 3rem 0;
-          text-align: center;
-        }
+      {/* Preventive */}
+      <section className="bg-white py-20 px-4">
+        <div className="max-w-5xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+            <div>
+              <SectionHeader
+                eyebrow={language === 'es' ? 'Prevención' : 'Prevention'}
+                title={t.home.preventiveTitle}
+                subtitle={t.home.preventiveDescription}
+              />
+            </div>
+            <div>
+              <SectionHeader
+                eyebrow={language === 'es' ? 'Estilo de Vida' : 'Lifestyle'}
+                title={t.home.lifestyleTitle}
+                subtitle={t.home.lifestyleDescription}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
 
-        .hero h1 {
-          font-size: 2rem;
-          margin-bottom: 1rem;
-        }
-
-        .subtitle {
-          font-size: 1.125rem;
-          opacity: 0.95;
-        }
-
-        .section {
-          padding: 3rem 0;
-        }
-
-        .services-grid {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 1.5rem;
-        }
-
-        .service-card {
-          background-color: white;
-          border: 1px solid #e5e7eb;
-          border-radius: 0.5rem;
-          padding: 1.5rem;
-          box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-          transition: transform 0.2s, box-shadow 0.2s;
-        }
-
-        .service-card:hover {
-          transform: translateY(-2px);
-          box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-card h3 {
-          color: #1e40af;
-          font-size: 1.125rem;
-          font-weight: 600;
-        }
-
-        @media (min-width: 640px) {
-          .services-grid {
-            grid-template-columns: repeat(2, 1fr);
-          }
-        }
-
-        @media (min-width: 1024px) {
-          .services-grid {
-            grid-template-columns: repeat(3, 1fr);
-          }
-
-          .hero {
-            padding: 4rem 0;
-          }
-
-          .hero h1 {
-            font-size: 2.5rem;
-          }
-        }
-      `}</style>
-    </div>
+      {/* CTA */}
+      <section className="bg-brand-navy text-white py-20 px-4">
+        <div className="max-w-3xl mx-auto text-center">
+          <h2 className="text-3xl md:text-4xl font-bold mb-4">
+            {language === 'es' ? '¿Listo para reservar?' : 'Ready to book?'}
+          </h2>
+          <p className="text-blue-200 text-lg mb-10">
+            {language === 'es'
+              ? 'Programe una cita hoy y comience su camino hacia una mejor salud.'
+              : 'Schedule an appointment today and start your journey to better health.'}
+          </p>
+          <CtaButton actionKey="schedule_appointment" language={language} variant="primary-light" />
+        </div>
+      </section>
+    </>
   );
 }
-
