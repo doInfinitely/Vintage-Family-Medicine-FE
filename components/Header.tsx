@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
+
 import { useLanguage } from './LanguageProvider';
 import { getTranslations } from '@/lib/translations';
 
@@ -36,14 +36,11 @@ export default function Header() {
           <div className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link href="/" className="flex-shrink-0">
-              <Image
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
                 src="/logo.png"
                 alt="Vintage Family Medicine and Pediatrics"
-                width={320}
-                height={96}
-                className="h-10 sm:h-12 lg:h-16 w-auto object-contain"
-                priority
-                unoptimized
+                className="h-10 sm:h-12 lg:h-16 w-auto"
               />
             </Link>
 
