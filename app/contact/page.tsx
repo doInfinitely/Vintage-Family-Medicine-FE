@@ -148,20 +148,23 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map embed placeholder */}
+      {/* Map embed */}
       <section className="bg-white py-12 px-4">
         <div className="max-w-5xl mx-auto">
-          <div className="bg-gray-100 rounded-xl h-64 flex items-center justify-center text-gray-500">
-            <div className="text-center">
-              <div className="text-4xl mb-2">🗺️</div>
-              <p className="font-medium">860 Hebron Parkway, Suite 203, Lewisville, TX</p>
-              <p className="text-sm text-gray-400 mt-1">
-                {language === 'es' ? 'TODO: Insertar código embed de Google Maps' : 'TODO: Insert Google Maps embed code'}
-              </p>
-              <div className="mt-4">
-                <CtaButton actionKey="get_directions" language={language} variant="secondary" />
-              </div>
-            </div>
+          <div className="rounded-xl overflow-hidden shadow-md">
+            <iframe
+              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.6550374150224!2d-96.96499672374044!3d33.01286907189453!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c2f023fcc3f25%3A0x780cffa3041cd0c6!2s860%20Hebron%20Pkwy%20Ste%20203%2C%20Lewisville%2C%20TX%2075057%2C%20USA!5e0!3m2!1sen!2s!4v1782137928878!5m2!1sen!2s"
+              width="100%"
+              height="450"
+              style={{ border: 0 }}
+              allowFullScreen
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+              title="Vintage Family Medicine and Pediatrics location"
+            />
+          </div>
+          <div className="mt-4 text-center">
+            <CtaButton actionKey="get_directions" language={language} variant="secondary" />
           </div>
         </div>
       </section>

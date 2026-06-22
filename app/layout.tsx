@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
+import Script from 'next/script'
 import './globals.css'
 import { LanguageProvider } from '@/components/LanguageProvider'
 import Header from '@/components/Header'
@@ -44,6 +45,11 @@ export default function RootLayout({
           <main>{children}</main>
           <Footer />
         </LanguageProvider>
+        <Script id="klara-config" strategy="afterInteractive">
+          {`window.klaraWidget = window.klaraWidget || [];
+window.klaraWidget.push(["setWidgetId", "75ccd56b-a75e-48b8-a127-abe5e2e797c5"]);`}
+        </Script>
+        <Script src="https://widget-fe.klara.com/bundle.js" strategy="afterInteractive" />
       </body>
     </html>
   )

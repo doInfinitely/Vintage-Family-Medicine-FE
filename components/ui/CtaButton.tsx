@@ -3,33 +3,40 @@
 import type { Cta } from '@/lib/api';
 import type { Language } from '@/lib/translations';
 
+const KLARA_WIDGET = '#klara-widget';
+const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
+
+function openKlaraWidget() {
+  (window as any).klaraWidget?.push(['open']);
+}
+
 export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   schedule_appointment: {
     label_en: 'Schedule Appointment',
     label_es: 'Programar Cita',
-    href: '#',
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'primary',
   },
   patient_portal: {
     label_en: 'Patient Portal',
     label_es: 'Portal del Paciente',
-    href: '#',
+    href: ATHENA_URL,
     open_in_new_tab: true,
     button_style: 'secondary',
   },
   pay_bill: {
     label_en: 'Pay Bill',
     label_es: 'Pagar Factura',
-    href: '#',
+    href: ATHENA_URL,
     open_in_new_tab: true,
     button_style: 'secondary',
   },
   message_us: {
     label_en: 'Message Us',
     label_es: 'Envíenos un Mensaje',
-    href: '#',
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'primary',
   },
   call_us: {
@@ -42,15 +49,15 @@ export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   video_visit: {
     label_en: 'Start Video Visit',
     label_es: 'Iniciar Visita por Video',
-    href: '#',
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'primary',
   },
   new_patient_forms: {
     label_en: 'New Patient Forms',
     label_es: 'Formularios para Nuevos Pacientes',
-    href: '#',
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'secondary',
   },
   get_directions: {
@@ -63,15 +70,15 @@ export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   existing_patient_schedule: {
     label_en: 'Book Appointment',
     label_es: 'Reservar Cita',
-    href: '#',
+    href: ATHENA_URL,
     open_in_new_tab: true,
     button_style: 'secondary',
   },
   text_us: {
     label_en: 'Text Us',
     label_es: 'Envíenos un Texto',
-    href: '#',
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'secondary',
   },
 };
@@ -115,13 +122,22 @@ export default function CtaButton({
       : (cta?.label_en ?? defaults?.label_en ?? actionKey);
   const openInNewTab = cta?.open_in_new_tab ?? defaults?.open_in_new_tab ?? false;
   const styleKey = variant ?? cta?.button_style ?? defaults?.button_style ?? 'primary';
+  const cls = `${STYLE_MAP[styleKey] ?? STYLE_MAP.primary} ${className ?? ''}`;
+
+  if (href === KLARA_WIDGET) {
+    return (
+      <button type="button" onClick={openKlaraWidget} className={cls}>
+        {label}
+      </button>
+    );
+  }
 
   return (
     <a
       href={href}
       target={openInNewTab ? '_blank' : undefined}
       rel={openInNewTab ? 'noopener noreferrer' : undefined}
-      className={`${STYLE_MAP[styleKey] ?? STYLE_MAP.primary} ${className ?? ''}`}
+      className={cls}
     >
       {label}
     </a>

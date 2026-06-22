@@ -21,12 +21,14 @@ export default function Footer() {
     { href: '/contact', label: t.nav.contact },
   ];
 
-  const patientLinks = [
+  const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
+
+  const patientLinks: { href: string; label: string; klara?: boolean }[] = [
     { href: '/patient-resources', label: t.nav.patientResources },
-    { href: '#', label: language === 'es' ? 'Programar Cita' : 'Schedule Appointment' },
-    { href: '#', label: language === 'es' ? 'Portal del Paciente' : 'Patient Portal' },
-    { href: '#', label: language === 'es' ? 'Pagar Factura' : 'Pay Bill' },
-    { href: '#', label: language === 'es' ? 'Envíenos un Mensaje' : 'Message Us' },
+    { href: '#', label: language === 'es' ? 'Programar Cita' : 'Schedule Appointment', klara: true },
+    { href: ATHENA_URL, label: language === 'es' ? 'Portal del Paciente' : 'Patient Portal' },
+    { href: ATHENA_URL, label: language === 'es' ? 'Pagar Factura' : 'Pay Bill' },
+    { href: '#', label: language === 'es' ? 'Envíenos un Mensaje' : 'Message Us', klara: true },
   ];
 
   const legalLinks = [
@@ -73,13 +75,25 @@ export default function Footer() {
             </h4>
             <ul className="space-y-2">
               {patientLinks.map((link) => (
-                <li key={link.href + link.label}>
-                  <Link
-                    href={link.href}
-                    className="text-sm text-gray-300 hover:text-white transition-colors"
-                  >
-                    {link.label}
-                  </Link>
+                <li key={link.label}>
+                  {link.klara ? (
+                    <button
+                      type="button"
+                      onClick={() => (window as any).klaraWidget?.push(['open'])}
+                      className="text-sm text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </button>
+                  ) : (
+                    <Link
+                      href={link.href}
+                      target={link.href.startsWith('http') ? '_blank' : undefined}
+                      rel={link.href.startsWith('http') ? 'noopener noreferrer' : undefined}
+                      className="text-sm text-gray-300 hover:text-white transition-colors"
+                    >
+                      {link.label}
+                    </Link>
+                  )}
                 </li>
               ))}
             </ul>
