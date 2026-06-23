@@ -46,7 +46,7 @@ export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   call_us: {
     label_en: 'Call Us',
     label_es: 'Llámenos',
-    href: 'tel:TODO',
+    href: 'tel:+19723155144',
     open_in_new_tab: false,
     button_style: 'primary',
   },

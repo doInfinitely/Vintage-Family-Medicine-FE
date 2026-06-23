@@ -64,14 +64,14 @@ export default function ContactPage() {
                     {language === 'es' ? 'Teléfono' : 'Phone'}
                   </dt>
                   <dd>
-                    <a href="tel:TODO" className="text-brand-blue hover:underline">TODO: Phone number</a>
+                    <a href="tel:+19723155144" className="text-brand-blue hover:underline">(972) 315-5144</a>
                   </dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-gray-500 uppercase text-xs tracking-wide mb-1">
                     {language === 'es' ? 'Fax' : 'Fax'}
                   </dt>
-                  <dd className="text-gray-600">TODO: Fax number</dd>
+                  <dd className="text-gray-600">(469) 530-9200</dd>
                 </div>
                 <div>
                   <dt className="font-semibold text-gray-500 uppercase text-xs tracking-wide mb-1">

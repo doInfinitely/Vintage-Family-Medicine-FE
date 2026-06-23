@@ -106,8 +106,8 @@ export default function Footer() {
             </h4>
             <div className="space-y-2 text-sm">
               <p>
-                <a href="tel:TODO" className="hover:text-white transition-colors">
-                  {language === 'es' ? 'Teléfono: TODO' : 'Phone: TODO'}
+                <a href="tel:+19723155144" className="hover:text-white transition-colors">
+                  {language === 'es' ? 'Teléfono: (972) 315-5144' : 'Phone: (972) 315-5144'}
                 </a>
               </p>
               <p>{language === 'es' ? 'Lun–Vie: 9:00am – 5:30pm' : 'Mon–Fri: 9:00am – 5:30pm'}</p>
