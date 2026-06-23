@@ -79,7 +79,7 @@ export default function Footer() {
                   {link.klara ? (
                     <button
                       type="button"
-                      onClick={() => (window as any).klaraWidget?.push(['open'])}
+                      onClick={() => { try { (window as any).klaraWidget?.push(['open']); } catch {} }}
                       className="text-sm text-gray-300 hover:text-white transition-colors"
                     >
                       {link.label}

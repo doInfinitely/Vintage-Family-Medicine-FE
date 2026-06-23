@@ -7,7 +7,11 @@ const KLARA_WIDGET = '#klara-widget';
 const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
 
 function openKlaraWidget() {
-  (window as any).klaraWidget?.push(['open']);
+  try {
+    (window as any).klaraWidget?.push(['open']);
+  } catch {
+    // Klara widget not ready or not configured for this domain
+  }
 }
 
 export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
