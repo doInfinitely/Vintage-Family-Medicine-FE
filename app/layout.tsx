@@ -3,6 +3,7 @@ import { Inter } from 'next/font/google'
 import Script from 'next/script'
 import './globals.css'
 import { LanguageProvider } from '@/components/LanguageProvider'
+import { CtaProvider } from '@/components/CtaProvider'
 import Header from '@/components/Header'
 import Footer from '@/components/Footer'
 import AnnouncementBanner from '@/components/AnnouncementBanner'
@@ -40,10 +41,12 @@ export default function RootLayout({
     <html lang="en">
       <body className={inter.className}>
         <LanguageProvider>
-          <AnnouncementBanner />
-          <Header />
-          <main>{children}</main>
-          <Footer />
+          <CtaProvider>
+            <AnnouncementBanner />
+            <Header />
+            <main>{children}</main>
+            <Footer />
+          </CtaProvider>
         </LanguageProvider>
         <Script id="klara-config" strategy="afterInteractive">
           {`window.klaraWidget = window.klaraWidget || [];

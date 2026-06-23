@@ -35,8 +35,14 @@ export default function LegalPage() {
     return (
       <div className="min-h-screen flex items-center justify-center px-4">
         <div className="text-center">
-          <h1 className="text-2xl font-bold text-brand-navy mb-2">Page Not Found</h1>
-          <p className="text-gray-600">The legal page you requested does not exist.</p>
+          <h1 className="text-2xl font-bold text-brand-navy mb-2">
+            {language === 'es' ? 'Página No Encontrada' : 'Page Not Found'}
+          </h1>
+          <p className="text-gray-600">
+            {language === 'es'
+              ? 'La página legal que solicitó no existe.'
+              : 'The legal page you requested does not exist.'}
+          </p>
         </div>
       </div>
     );

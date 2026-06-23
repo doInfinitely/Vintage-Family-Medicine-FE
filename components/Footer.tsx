@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { useLanguage } from './LanguageProvider';
 import { getTranslations } from '@/lib/translations';
+import { openKlaraWidget } from '@/lib/klara';
 
 export default function Footer() {
   const { language } = useLanguage();
@@ -79,7 +80,7 @@ export default function Footer() {
                   {link.klara ? (
                     <button
                       type="button"
-                      onClick={() => { try { (window as any).klaraWidget?.push(['open']); } catch {} }}
+                      onClick={openKlaraWidget}
                       className="text-sm text-gray-300 hover:text-white transition-colors"
                     >
                       {link.label}

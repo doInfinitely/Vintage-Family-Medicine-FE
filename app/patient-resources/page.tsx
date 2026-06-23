@@ -12,7 +12,7 @@ const FAQS_EN = [
   {
     category: 'Appointments',
     q: 'How do I schedule an appointment?',
-    a: 'New and existing patients can schedule through Klara — our HIPAA-secure messaging and scheduling platform. Use the "Schedule Appointment" button on any page.',
+    a: 'New patients schedule through Klara — our HIPAA-secure messaging and scheduling platform. Existing patients can book appointments through the Athena patient portal.',
   },
   {
     category: 'Appointments',
@@ -55,7 +55,7 @@ const FAQS_ES = [
   {
     category: 'Citas',
     q: '¿Cómo programo una cita?',
-    a: 'Los pacientes nuevos y existentes pueden programar a través de Klara, nuestra plataforma de mensajería y programación segura de HIPAA. Use el botón "Programar Cita" en cualquier página.',
+    a: 'Los pacientes nuevos programan a través de Klara, nuestra plataforma de mensajería y programación segura de HIPAA. Los pacientes existentes pueden reservar citas a través del portal de pacientes de Athena.',
   },
   {
     category: 'Citas',
@@ -170,7 +170,8 @@ export default function PatientResourcesPage() {
                 }
               />
               <div className="mt-6 flex flex-wrap gap-3">
-                <CtaButton actionKey="patient_portal" language={language} />
+                <CtaButton actionKey="existing_patient_schedule" language={language} />
+                <CtaButton actionKey="patient_portal" language={language} variant="secondary" />
                 <CtaButton actionKey="pay_bill" language={language} variant="secondary" />
               </div>
             </div>

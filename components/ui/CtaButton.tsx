@@ -2,17 +2,11 @@
 
 import type { Cta } from '@/lib/api';
 import type { Language } from '@/lib/translations';
+import { openKlaraWidget } from '@/lib/klara';
+import { useCtaMap } from '@/components/CtaProvider';
 
 const KLARA_WIDGET = '#klara-widget';
 const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
-
-function openKlaraWidget() {
-  try {
-    (window as any).klaraWidget?.push(['open']);
-  } catch {
-    // Klara widget not ready or not configured for this domain
-  }
-}
 
 export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   schedule_appointment: {
@@ -116,7 +110,8 @@ export default function CtaButton({
   className,
   variant,
 }: Props) {
-  const cta = ctaMap?.[actionKey];
+  const ctxMap = useCtaMap();
+  const cta = ctaMap?.[actionKey] ?? ctxMap[actionKey];
   const defaults = CTA_DEFAULTS[actionKey];
 
   const href = cta?.href ?? defaults?.href ?? '#';
