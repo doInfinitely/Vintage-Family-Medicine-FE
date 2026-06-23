@@ -37,7 +37,7 @@ export default function AnnouncementBanner() {
           className={`${TYPE_STYLES[a.type] ?? TYPE_STYLES.info} py-2 px-4 text-sm text-center relative`}
           role="alert"
         >
-          <span>{language === 'es' ? a.body_es : a.body_en}</span>
+          <span>{a.message}</span>
           <button
             onClick={() => setDismissed((prev) => new Set([...prev, a.id]))}
             className="absolute right-4 top-1/2 -translate-y-1/2 font-bold text-lg leading-none opacity-70 hover:opacity-100"

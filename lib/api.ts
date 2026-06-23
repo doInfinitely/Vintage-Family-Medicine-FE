@@ -90,12 +90,12 @@ export interface Faq {
 }
 
 export interface Announcement {
-  id: number;
-  body_en: string;
-  body_es: string;
+  id: string;
+  title: string;
+  message: string;
   type: string;
-  starts_at: string;
-  ends_at: string | null;
+  start_date: string | null;
+  end_date: string | null;
 }
 
 export interface LegalPage {
