@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { useLanguage } from './LanguageProvider';
 import type { Announcement } from '@/lib/api';
 
 const TYPE_STYLES: Record<string, string> = {
@@ -11,9 +10,8 @@ const TYPE_STYLES: Record<string, string> = {
 };
 
 export default function AnnouncementBanner() {
-  const { language } = useLanguage();
   const [announcements, setAnnouncements] = useState<Announcement[]>([]);
-  const [dismissed, setDismissed] = useState<Set<number>>(new Set());
+  const [dismissed, setDismissed] = useState<Set<string>>(new Set());
 
   useEffect(() => {
     const apiUrl = process.env.NEXT_PUBLIC_API_URL;
