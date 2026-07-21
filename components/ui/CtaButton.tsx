@@ -114,7 +114,10 @@ export default function CtaButton({
   const cta = ctaMap?.[actionKey] ?? ctxMap[actionKey];
   const defaults = CTA_DEFAULTS[actionKey];
 
-  const href = cta?.href ?? defaults?.href ?? '#';
+  // DB rows seeded before real URLs were known contain "TODO" hrefs; fall back
+  // to the hardcoded defaults instead of rendering a broken link.
+  const dbHref = cta?.href && !cta.href.includes('TODO') ? cta.href : undefined;
+  const href = dbHref ?? defaults?.href ?? '#';
   const label =
     language === 'es'
       ? (cta?.label_es ?? defaults?.label_es ?? actionKey)
