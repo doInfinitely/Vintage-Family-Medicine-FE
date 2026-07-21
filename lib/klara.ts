@@ -1,26 +1,18 @@
-// Opens the Klara floating widget by trying multiple strategies in sequence.
-// Klara has no documented programmatic open API, so we try known push commands
-// then fall back to clicking the launcher button in the DOM.
+// Opens the Klara floating widget.
+//
+// The widget bundle (widget-fe.klara.com/bundle.js) replaces window.klaraWidget
+// with a command queue that accepts exactly two commands: "setWidgetId" and
+// "embeddedMode". There is no "open" command — but embeddedMode sets
+// widgetOpen=true, and passing an explicit `false` argument keeps
+// embedded=false, so the widget opens in its normal floating layout.
+// If the bundle hasn't loaded yet, klaraWidget is still a plain array and the
+// command is queued and replayed on init.
 export function openKlaraWidget() {
   const w = (window as any).klaraWidget;
-
-  for (const cmd of ['open', 'openWidget', 'show']) {
-    try {
-      w?.push([cmd]);
-      return;
-    } catch { /* command not supported — try next */ }
-  }
-
-  // DOM fallback: Klara renders a launcher button in the page; click it directly.
-  for (const sel of [
-    '[class*="klara-launcher"]',
-    '[id*="klara-launcher"]',
-    '[class*="klaraLauncher"]',
-    'button[aria-label*="lara"]',
-    '[data-testid*="klara"]',
-    '[class*="widget-launcher"]',
-  ]) {
-    const el = document.querySelector<HTMLElement>(sel);
-    if (el) { el.click(); return; }
+  if (!w) return;
+  try {
+    w.push(['embeddedMode', false]);
+  } catch {
+    // Widget failed to initialize (script blocked, network error) — nothing to open.
   }
 }
