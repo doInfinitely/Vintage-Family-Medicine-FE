@@ -2,9 +2,8 @@ import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 
 const SLUG_TITLES: Record<string, string> = {
-  'privacy-policy': 'Privacy Policy',
-  'hipaa-notice': 'HIPAA Notice of Privacy Practices',
-  'terms-of-use': 'Terms of Use',
+  'privacy-policy': 'Privacy Practices',
+  'hipaa-notice': 'Notice of Privacy Practices',
 };
 
 export async function generateMetadata({

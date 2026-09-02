@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams } from 'next/navigation';
+import { notFound, useParams } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageProvider';
 import { LEGAL_DOCS, type Block } from '@/lib/legal';
 
@@ -47,20 +47,7 @@ export default function LegalPage() {
   const page = LEGAL_DOCS[slug];
 
   if (!page) {
-    return (
-      <div className="min-h-screen flex items-center justify-center px-4">
-        <div className="text-center">
-          <h1 className="text-2xl font-bold text-brand-navy mb-2">
-            {language === 'es' ? 'Página No Encontrada' : 'Page Not Found'}
-          </h1>
-          <p className="text-gray-600">
-            {language === 'es'
-              ? 'La página legal que solicitó no existe.'
-              : 'The legal page you requested does not exist.'}
-          </p>
-        </div>
-      </div>
-    );
+    notFound();
   }
 
   const title = language === 'es' ? page.title_es : page.title_en;
