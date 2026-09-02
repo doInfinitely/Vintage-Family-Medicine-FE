@@ -8,16 +8,18 @@ import { useCtaMap } from '@/components/CtaProvider';
 const KLARA_WIDGET = '#klara-widget';
 const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
 // Athena consumer self-scheduling, enabled Sept 2026. Department-level link for
-// the "Vintage Family Medicine" department (30150-4). Provider- and other
-// department-level links exist; see Athena Online Scheduling BookingLinks.csv.
+// the "Vintage Family Medicine" department (30150-4) = 860 Hebron Pkwy. Used by
+// existing_patient_schedule only: Athena exposes a full visit-reason menu to
+// existing patients but only "Newborn" to new ones, so schedule_appointment
+// stays on the Klara message flow (which the FAQ copy also promises).
 const ATHENA_BOOKING_URL = 'https://consumer.scheduling.athena.io/?locationId=30150-4';
 
 export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   schedule_appointment: {
     label_en: 'Schedule Appointment',
     label_es: 'Programar Cita',
-    href: ATHENA_BOOKING_URL,
-    open_in_new_tab: true,
+    href: KLARA_WIDGET,
+    open_in_new_tab: false,
     button_style: 'primary',
   },
   patient_portal: {
