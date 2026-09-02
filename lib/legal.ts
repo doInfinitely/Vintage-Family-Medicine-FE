@@ -21,6 +21,7 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
     title_en: `Privacy Practices`,
     title_es: `Prácticas de Privacidad`,
     blocks: [
+      { t: 'p', en: `Effective Date: September 1, 2026.`, es: `Fecha de vigencia: 1 de septiembre de 2026.` },
       { t: 'h2', en: `Purpose`, es: `Propósito` },
       {
         t: 'p',
@@ -76,6 +77,7 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
     intro_en: `Your Information. Your Rights. Our Responsibilities. This notice describes how medical information about you may be used and disclosed and how you can get access to this information. Please review it carefully.`,
     intro_es: `Su Información. Sus Derechos. Nuestras Responsabilidades. Este aviso describe cómo puede usarse y divulgarse su información médica y cómo puede usted acceder a esta información. Por favor, revíselo cuidadosamente.`,
     blocks: [
+      { t: 'p', en: `Effective Date: September 1, 2026.`, es: `Fecha de vigencia: 1 de septiembre de 2026.` },
       { t: 'h2', en: `Your Rights`, es: `Sus Derechos` },
       { t: 'p', en: `You have the right to:`, es: `Usted tiene derecho a:` },
       {
@@ -220,8 +222,8 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
       { t: 'h3', en: `File a complaint if you feel your rights are violated`, es: `Presentar una queja si considera que se violaron sus derechos` },
       {
         t: 'p',
-        en: `You can complain if you feel we have violated your rights by contacting us using the information at the bottom of this page.`,
-        es: `Puede presentar una queja si considera que hemos violado sus derechos, comunicándose con nosotros mediante la información que aparece al final de esta página.`,
+        en: `You can complain if you feel we have violated your rights by contacting Dennis Ochei, MD, using the information at the bottom of this page.`,
+        es: `Puede presentar una queja si considera que hemos violado sus derechos, comunicándose con Dennis Ochei, MD, mediante la información que aparece al final de esta página.`,
       },
       {
         t: 'p',
@@ -363,8 +365,8 @@ export const LEGAL_DOCS: Record<string, LegalDoc> = {
       { t: 'h2', en: `Contact Us`, es: `Contáctenos` },
       {
         t: 'p',
-        en: `Vintage Family Medicine and Pediatrics, 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143. Phone: (972) 315-5144. Fax: (469) 530-9200.`,
-        es: `Vintage Family Medicine and Pediatrics, 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143. Teléfono: (972) 315-5144. Fax: (469) 530-9200.`,
+        en: `Privacy Contact: Dennis Ochei, MD. Vintage Family Medicine and Pediatrics, 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143. Phone: (972) 315-5144. Fax: (469) 530-9200.`,
+        es: `Contacto de privacidad: Dennis Ochei, MD. Vintage Family Medicine and Pediatrics, 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143. Teléfono: (972) 315-5144. Fax: (469) 530-9200.`,
       },
     ],
   },
