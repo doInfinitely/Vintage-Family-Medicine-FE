@@ -13,7 +13,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/contact`, priority: 0.7 },
     { url: `${base}/legal/privacy-policy`, priority: 0.3 },
     { url: `${base}/legal/hipaa-notice`, priority: 0.3 },
-    { url: `${base}/legal/terms-of-use`, priority: 0.3 },
   ];
 
   return staticRoutes.map((r) => ({

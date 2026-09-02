@@ -2,34 +2,49 @@
 
 import { useParams } from 'next/navigation';
 import { useLanguage } from '@/components/LanguageProvider';
+import { LEGAL_DOCS, type Block } from '@/lib/legal';
 
-const LEGAL_CONTENT: Record<string, { title_en: string; title_es: string; body_en: string; body_es: string }> = {
-  'privacy-policy': {
-    title_en: 'Privacy Policy',
-    title_es: 'Política de Privacidad',
-    body_en: 'TODO: Insert privacy policy text here.',
-    body_es: 'TODO: Insertar texto de política de privacidad aquí.',
-  },
-  'hipaa-notice': {
-    title_en: 'HIPAA Notice of Privacy Practices',
-    title_es: 'Aviso de Prácticas de Privacidad HIPAA',
-    body_en: 'TODO: Insert HIPAA Notice of Privacy Practices text here.',
-    body_es: 'TODO: Insertar texto del Aviso de Prácticas de Privacidad HIPAA aquí.',
-  },
-  'terms-of-use': {
-    title_en: 'Terms of Use',
-    title_es: 'Términos de Uso',
-    body_en: 'TODO: Insert terms of use text here.',
-    body_es: 'TODO: Insertar texto de términos de uso aquí.',
-  },
-};
+function renderBlock(block: Block, language: string, i: number) {
+  if (block.t === 'ul') {
+    const items = language === 'es' ? block.es : block.en;
+    return (
+      <ul key={i} className="list-disc pl-6 space-y-2 my-5 text-gray-700">
+        {items.map((item, j) => (
+          <li key={j}>{item}</li>
+        ))}
+      </ul>
+    );
+  }
+
+  const text = language === 'es' ? block.es : block.en;
+
+  if (block.t === 'h2') {
+    return (
+      <h2 key={i} className="text-brand-navy font-bold text-2xl mt-12 mb-4 first:mt-0">
+        {text}
+      </h2>
+    );
+  }
+  if (block.t === 'h3') {
+    return (
+      <h3 key={i} className="text-brand-navy font-semibold text-lg mt-8 mb-2">
+        {text}
+      </h3>
+    );
+  }
+  return (
+    <p key={i} className="text-gray-700 leading-relaxed my-4">
+      {text}
+    </p>
+  );
+}
 
 export default function LegalPage() {
   const params = useParams();
   const slug = Array.isArray(params.slug) ? params.slug[0] : (params.slug ?? '');
   const { language } = useLanguage();
 
-  const page = LEGAL_CONTENT[slug];
+  const page = LEGAL_DOCS[slug];
 
   if (!page) {
     return (
@@ -49,7 +64,7 @@ export default function LegalPage() {
   }
 
   const title = language === 'es' ? page.title_es : page.title_en;
-  const body = language === 'es' ? page.body_es : page.body_en;
+  const intro = language === 'es' ? page.intro_es : page.intro_en;
 
   return (
     <>
@@ -66,13 +81,15 @@ export default function LegalPage() {
       {/* Body */}
       <section className="bg-white py-16 px-4">
         <div className="max-w-3xl mx-auto">
-          <div className="prose prose-gray prose-lg max-w-none">
-            <p>{body}</p>
-          </div>
-          <p className="mt-12 text-sm text-gray-400">
-            {language === 'es'
-              ? 'Vintage Family Medicine and Pediatrics · 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143'
-              : 'Vintage Family Medicine and Pediatrics · 860 Hebron Parkway, Suite 203, Lewisville, TX 75057-5143'}
+          {intro && (
+            <p className="text-lg text-gray-800 leading-relaxed mb-10 pb-8 border-b border-gray-200">
+              {intro}
+            </p>
+          )}
+          {page.blocks.map((block, i) => renderBlock(block, language, i))}
+          <p className="mt-16 pt-8 border-t border-gray-200 text-sm text-gray-500">
+            Vintage Family Medicine and Pediatrics · 860 Hebron Parkway, Suite 203, Lewisville, TX
+            75057-5143
           </p>
         </div>
       </section>

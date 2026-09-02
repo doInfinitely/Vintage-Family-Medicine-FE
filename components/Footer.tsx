@@ -33,9 +33,8 @@ export default function Footer() {
   ];
 
   const legalLinks = [
-    { href: '/legal/privacy-policy', label: language === 'es' ? 'Política de Privacidad' : 'Privacy Policy' },
+    { href: '/legal/privacy-policy', label: language === 'es' ? 'Prácticas de Privacidad' : 'Privacy Practices' },
     { href: '/legal/hipaa-notice', label: language === 'es' ? 'Aviso HIPAA' : 'HIPAA Notice' },
-    { href: '/legal/terms-of-use', label: language === 'es' ? 'Términos de Uso' : 'Terms of Use' },
   ];
 
   return (

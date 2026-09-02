@@ -7,13 +7,17 @@ import { useCtaMap } from '@/components/CtaProvider';
 
 const KLARA_WIDGET = '#klara-widget';
 const ATHENA_URL = 'https://30150-2.portal.athenahealth.com/';
+// Athena consumer self-scheduling, enabled Sept 2026. Department-level link for
+// the "Vintage Family Medicine" department (30150-4). Provider- and other
+// department-level links exist; see Athena Online Scheduling BookingLinks.csv.
+const ATHENA_BOOKING_URL = 'https://consumer.scheduling.athena.io/?locationId=30150-4';
 
 export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   schedule_appointment: {
     label_en: 'Schedule Appointment',
     label_es: 'Programar Cita',
-    href: KLARA_WIDGET,
-    open_in_new_tab: false,
+    href: ATHENA_BOOKING_URL,
+    open_in_new_tab: true,
     button_style: 'primary',
   },
   patient_portal: {
@@ -68,7 +72,7 @@ export const CTA_DEFAULTS: Record<string, Omit<Cta, 'action_key'>> = {
   existing_patient_schedule: {
     label_en: 'Book Appointment',
     label_es: 'Reservar Cita',
-    href: ATHENA_URL,
+    href: ATHENA_BOOKING_URL,
     open_in_new_tab: true,
     button_style: 'secondary',
   },
